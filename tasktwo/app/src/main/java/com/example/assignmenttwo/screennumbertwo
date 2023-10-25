@@ -1,0 +1,234 @@
+package com.example.weather_app
+
+import android.os.Bundle
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.Add
+import androidx.compose.material.icons.rounded.ArrowBack
+import androidx.compose.material.icons.rounded.Menu
+import androidx.compose.material.icons.rounded.MoreVert
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Card
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import com.example.weather_app.ui.theme.WeatherAppTheme
+
+class WeatherScreen : ComponentActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContent {
+            WeatherAppTheme {
+                WeatherScreenContent()
+            }
+        }
+    }
+}
+
+@Composable
+fun WeatherScreenContent() {
+    Column(Modifier.fillMaxWidth()) {
+        Row(Modifier.weight(0.65f)) {
+            LocationCard(
+                locationName = "Location",
+                locationDescription = "Description for location",
+                background = Color.White,
+                modifier = Modifier.weight(1.5f)
+            )
+            TopRightCard(
+                description = "Description for top right",
+                background = Color.LightGray,
+                modifier = Modifier.weight(1f)
+            )
+        }
+
+        Column(Modifier.weight(1f)) {
+            ConditionCard(
+                title = "Title 1",
+                condition = "Condition 1",
+                temperature = "Temperature 1",
+                background = Color.Blue,
+                modifier = Modifier.weight(0.5f)
+            )
+            ConditionCard(
+                title = "Title 2",
+                condition = "Condition 2",
+                temperature = "Temperature 2",
+                background = Color.White,
+                modifier = Modifier.weight(0.5f)
+            )
+            ConditionCard(
+                title = "Title 3",
+                condition = "Condition 3",
+                temperature = "Temperature 3",
+                background = Color.White,
+                modifier = Modifier.weight(0.5f)
+            )
+        }
+    }
+}
+
+@Composable
+private fun LocationCard(
+    locationName: String,
+    locationDescription: String,
+    background: Color,
+    modifier: Modifier = Modifier
+) {
+    Column(
+        modifier = modifier
+            .fillMaxSize()
+            .background(background)
+            .padding(16.dp),
+        verticalArrangement = Arrangement.spacedBy(5.dp),
+        horizontalAlignment = Alignment.Start
+    ) {
+
+        Icon(
+            imageVector = Icons.Rounded.ArrowBack,
+            contentDescription = "Arrow",
+            tint = Color.DarkGray
+        )
+        Text(
+            text = locationName,
+            modifier = Modifier.padding(bottom = 15.dp).align(Alignment.CenterHorizontally),
+            fontSize = 15.sp,
+            fontWeight = FontWeight.Bold,
+            color = Color.DarkGray
+        )
+        Icon(
+            imageVector = Icons.Rounded.MoreVert,
+            contentDescription = "More",
+            tint = Color.DarkGray,
+            modifier = Modifier.align(Alignment.End).padding(bottom = 10.dp)
+        )
+        Text(
+            text = locationDescription,
+            textAlign = TextAlign.Justify,
+            color = Color.DarkGray
+        )
+        ButtonCard(background = Color.White)
+    }
+}
+
+@Composable
+private fun TopRightCard(
+    description: String,
+    background: Color,
+    modifier: Modifier = Modifier
+) {
+    Column(
+        modifier = modifier
+            .fillMaxSize()
+            .background(background),
+        verticalArrangement = Arrangement.spacedBy(5.dp),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+
+        Icon(
+            imageVector = Icons.Rounded.Add,
+            contentDescription = "Plus",
+            tint = Color.DarkGray,
+            modifier = Modifier.padding(top = 50.dp).align(Alignment.CenterHorizontally)
+        )
+
+        Text(
+            text = description,
+            modifier = Modifier.align(Alignment.CenterHorizontally),
+            fontWeight = FontWeight.Bold
+        )
+    }
+}
+
+@Composable
+private fun ConditionCard(
+    title: String,
+    condition: String,
+    temperature: String,
+    background: Color,
+    modifier: Modifier = Modifier
+) {
+    Column(
+        modifier = modifier
+            .fillMaxSize()
+            .background(background)
+            .padding(10.dp),
+        verticalArrangement = Arrangement.spacedBy(1.dp),
+        horizontalAlignment = Alignment.Start
+    ) {
+
+        Text(
+            text = title,
+            modifier = Modifier.padding(bottom = 10.dp),
+            fontWeight = FontWeight.Bold,
+            fontSize = 35.sp,
+            color = Color.White
+        )
+
+        Text(
+            text = condition,
+            textAlign = TextAlign.Justify,
+            color = Color.White
+        )
+        Text(
+            text = temperature,
+            textAlign = TextAlign.Justify,
+            fontWeight = FontWeight.Bold,
+            fontSize = 20.sp,
+            modifier = Modifier.align(Alignment.End).padding(bottom = 30.dp),
+            color = Color.Magenta
+        )
+    }
+}
+
+@Composable
+private fun ButtonCard(
+    background: Color,
+    elevation: Dp = 8.dp,
+    modifier: Modifier = Modifier
+) {
+    Column(
+        modifier = modifier
+            .fillMaxSize()
+            .padding(16.dp),
+        verticalArrangement = Arrangement.spacedBy(5.dp),
+        horizontalAlignment = Alignment.Start
+    ) {
+        Button(
+            colors = ButtonDefaults.buttonColors(Color.LightGray),
+            onClick = {
+                // Handle button click action here
+            },
+            modifier = Modifier.fillMaxWidth(),
+        ) {
+            Text(text = "Choose place", color = Color.Blue)
+        }
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun WeatherScreenPreview() {
+    WeatherAppTheme {
+        WeatherScreenContent()
+    }
+}
